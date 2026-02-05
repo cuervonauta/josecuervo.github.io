@@ -542,49 +542,58 @@
         lucide.createIcons();
 
         function generatePDF() {
-            // Elemento a convertir
             const element = document.getElementById('cv-content');
-            
-            // --- TRUCO CLAVE: Forzar modo escritorio temporalmente ---
-            // Guardamos el estado original
-            const originalWidth = element.style.width;
-            const originalMargin = element.style.margin;
-            const originalPadding = element.style.padding;
-            
-            // Forzamos dimensiones A4 rígidas para el renderizado
-            // Esto evita que si estás en un celular, el PDF salga "angosto"
-            element.style.width = '210mm';
-            element.style.margin = '0'; 
-            element.style.padding = '48px'; // Padding de escritorio
-            
-            // Opciones de configuración
-            const opt = {
-                margin: [15, 0, 15, 0], // Margen superior para evitar cortes feos
-                filename: 'CV_Jose_Cuervo_UX_Lead.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true, 
-                    scrollY: 0,
-                    windowWidth: 1200 // Simula una ventana de escritorio al renderizar
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                // IMPORTANTE: Modo 'css' permite que funcione el page-break-before: always
-                pagebreak: { mode: ['css', 'legacy'] }
-            };
-            
             const btn = document.getElementById('download-btn');
             const originalContent = btn.innerHTML;
             
             btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> GENERANDO...';
             lucide.createIcons();
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Restauramos el estilo responsivo para que el usuario siga navegando feliz
-                element.style.width = originalWidth;
-                element.style.margin = originalMargin;
-                element.style.padding = originalPadding;
-                
+            // CLON OPTIMIZADO PARA PDF: Solución robusta para móviles
+            // 1. Clonamos el contenido para no afectar la vista actual del usuario
+            const clone = element.cloneNode(true);
+            
+            // 2. Aplicamos estilos fijos de escritorio al clon, independientemente del dispositivo
+            clone.style.width = '210mm'; // Ancho exacto A4
+            clone.style.minHeight = '297mm';
+            clone.style.padding = '48px'; 
+            clone.style.margin = '0';
+            clone.style.backgroundColor = 'white';
+            clone.style.color = '#111827'; // Asegurar color de texto
+            
+            // 3. Posicionamos el clon fuera de la vista pero renderizable
+            clone.style.position = 'absolute';
+            clone.style.left = '-9999px';
+            clone.style.top = '0';
+            
+            // 4. Añadimos el clon al cuerpo del documento
+            document.body.appendChild(clone);
+            
+            // Opciones de configuración
+            const opt = {
+                margin: [15, 0, 15, 0], // Margen superior para evitar cortes
+                filename: 'CV_Jose_Cuervo_UX_Lead.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    scrollY: 0,
+                    windowWidth: 1200 // Engaña al renderizador para que use estilos de escritorio
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(clone).save().then(() => {
+                // Limpiamos el clon después de generar
+                document.body.removeChild(clone);
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            }).catch(err => {
+                console.error(err);
+                if (document.body.contains(clone)) {
+                    document.body.removeChild(clone);
+                }
                 btn.innerHTML = originalContent;
                 lucide.createIcons();
             });
