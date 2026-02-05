@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO & Sharing -->
+    <title>CV - José Alejandro Cuervo Sánchez | UX Product Lead</title>
+    <meta name="description" content="UX Product Lead especializado en Product Strategy, Management y AI-driven Design.">
+    <meta name="author" content="José Alejandro Cuervo Sánchez">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- html2pdf.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* Configuración base de tipografía y colores */
+        :root {
+            --color-primary: #111827;
+            --color-secondary: #4B5563;
+            --color-accent: #2563eb;
+            --color-accent-light: #eff6ff;
+            --color-divider: #E5E7EB;
+            --bg-block: #F9FAFB;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            padding-top: 70px; /* Ajuste para header fijo */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            min-width: 320px;
+        }
+
+        /* Configuración de Hoja A4 (Base Desktop) */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto 40px auto;
+            padding: 48px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* --- RESPONSIVIDAD (Mobile First Approach) --- */
+        @media screen and (max-width: 820px) { /* Tablets y Celulares */
+            body {
+                padding-top: 60px;
+                background-color: white; /* Fondo blanco en móvil para sentirlo nativo */
+            }
+            .page {
+                width: 100%; /* Ocupar todo el ancho */
+                min-height: auto;
+                margin: 0;
+                padding: 24px 20px; /* Padding más cómodo para lectura móvil */
+                box-shadow: none;
+            }
+            .name-title {
+                font-size: 24px !important; /* Título un poco más pequeño */
+                word-wrap: break-word;
+            }
+            .job-title-header {
+                font-size: 14px !important;
+                line-height: 1.4;
+            }
+            .meta-text {
+                flex-direction: column; /* Contacto en lista vertical */
+                align-items: flex-start !important;
+                gap: 8px !important;
+            }
+            .section-title {
+                margin-top: 24px;
+            }
+        }
+
+        /* Estilos de Texto */
+        .name-title {
+            font-size: 28px;
+            font-weight: 800; 
+            color: var(--color-primary);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .job-title-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-top: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        
+        .section-title + div {
+            page-break-before: avoid;
+            break-before: avoid;
+        }
+
+        .section-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: var(--color-accent-light);
+            color: var(--color-accent);
+            border-radius: 6px;
+            flex-shrink: 0; /* Evita que el icono se aplaste */
+        }
+
+        .body-text {
+            font-size: 11.5px;
+            color: #374151;
+            line-height: 1.6; 
+            font-weight: 400;
+        }
+
+        .meta-text {
+            font-size: 10.5px;
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        /* Skills Block Styling */
+        .skill-block {
+            background-color: white;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid var(--color-accent);
+            height: 100%;
+            transition: all 0.2s;
+            break-inside: avoid;
+        }
+
+        .skill-group-title {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .skill-content {
+            font-size: 11px;
+            color: var(--color-secondary);
+            line-height: 1.5;
+        }
+
+        /* Experience List */
+        ul.experience-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        ul.experience-list li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 6px;
+        }
+
+        ul.experience-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-size: 14px;
+            font-weight: bold;
+            top: -1px;
+            line-height: 1.6;
+        }
+        
+        /* Compact Previous Experience */
+        .previous-role-item {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        .previous-role-title {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .previous-role-meta {
+            font-size: 10.5px;
+            color: #6B7280;
+        }
+
+        .experience-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 28px;
+        }
+
+        /* Force Breaks for PDF pagination */
+        .force-break {
+            page-break-before: always;
+            break-before: page;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: var(--color-accent) !important;
+        }
+
+        /* Header Fijo UI */
+        .ui-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E5E5E5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        @media screen and (max-width: 640px) {
+            .ui-header {
+                padding: 0 16px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Fijo de UI -->
+    <nav class="ui-header" data-html2canvas-ignore="true">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs shrink-0">CV</div>
+            <div class="flex flex-col overflow-hidden">
+                <span class="font-semibold text-gray-700 text-sm leading-tight truncate">José Cuervo</span>
+                <span class="text-[10px] text-gray-400 font-medium truncate">UX Product Lead</span>
+            </div>
+        </div>
+        <div class="flex gap-2 shrink-0">
+            <button id="download-btn" onclick="generatePDF()" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 text-xs font-medium tracking-wide shadow-sm cursor-pointer">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">DESCARGAR PDF</span>
+                <span class="sm:hidden">PDF</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- CV Container (A4) -->
+    <div class="page" id="cv-content">
+        
+        <!-- PÁGINA 1: Header, Summary, Skills -->
+        <header class="mb-[32px]">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="name-title mb-2">JOSÉ ALEJANDRO CUERVO SÁNCHEZ</h1>
+                    <p class="job-title-header">UX Product Lead | Product Strategy · Product Management · AI-driven Design</p>
+                    
+                    <!-- Technical Foundation Line -->
+                    <p class="text-[11.5px] text-gray-500 mt-1.5 font-medium tracking-wide flex items-center gap-2">
+                        <span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">Expertise</span>
+                        UX/UI Design · Design Systems · Data-Driven Research · Scalable Experiences
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-5 meta-text border-t border-b border-gray-100 py-4 bg-gray-50/50 rounded-sm px-2">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <span class="text-gray-700">Santiago, Chile</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <a href="mailto:josec31k@gmail.com" class="text-gray-700 hover:text-blue-600">josec31k@gmail.com</a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="smartphone" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <a href="tel:+56961642221" class="text-gray-700 hover:text-blue-600">+56 9 6164 2221</a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="linkedin" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <a href="https://linkedin.com/in/cuervonauta" target="_blank" class="text-gray-700 hover:text-blue-600">linkedin.com/in/cuervonauta</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="mb-[36px]">
+            <h2 class="section-title">
+                <span class="section-icon-box"><i data-lucide="user" class="w-3.5 h-3.5"></i></span>
+                Executive Summary
+            </h2>
+            <p class="body-text text-justify text-gray-700">
+                <strong class="text-gray-900">UX Product Lead</strong> con más de 10 años de experiencia diseñando y liderando productos digitales en entornos de alta escala y complejidad (e-commerce, telecomunicaciones y plataformas de CX). Especializado en <strong class="text-gray-900">estrategia de experiencia</strong>, liderazgo de equipos multidisciplinarios y toma de decisiones basada en datos.
+                Experiencia liderando roadmaps, procesos end-to-end y adopción de <strong class="text-gray-900">Inteligencia Artificial</strong> como habilitador de eficiencia. Fuerte foco en impacto, escalabilidad y alineación entre usuario, negocio y tecnología.
+            </p>
+        </section>
+
+        <!-- CORE SKILLS (Visual Blocks) -->
+        <section class="mb-[36px]">
+            <h2 class="section-title">
+                <span class="section-icon-box"><i data-lucide="layers" class="w-3.5 h-3.5"></i></span>
+                Core Skills
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="skill-block">
+                    <h3 class="skill-group-title">Product & UX Strategy</h3>
+                    <p class="skill-content">Product Discovery · Problem Framing · UX Metrics & Business KPIs · Roadmaps · Prioritization · Experience Strategy</p>
+                </div>
+                <div class="skill-block">
+                    <h3 class="skill-group-title">Leadership</h3>
+                    <p class="skill-content">Team Leadership & Mentorship · Cross-functional Collaboration · Design Critique · Decision Making · Stakeholder Mgmt.</p>
+                </div>
+                <div class="skill-block">
+                    <h3 class="skill-group-title">Execution</h3>
+                    <p class="skill-content">End-to-End Product Design · Prototyping · Usability Testing · Design Systems & Scalability</p>
+                </div>
+                <div class="skill-block">
+                    <h3 class="skill-group-title">AI & Tools</h3>
+                    <p class="skill-content">AI-assisted Design & Decision Support · Figma · Jira · Notion · Miro · Experimentation & Iteration</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PÁGINA 2: Professional Experience -->
+        <!-- La clase 'force-break' asegura que esto empiece en una nueva hoja en el PDF -->
+        <section class="mb-[32px] force-break">
+            <h2 class="section-title mb-[24px]">
+                <span class="section-icon-box"><i data-lucide="briefcase" class="w-3.5 h-3.5"></i></span>
+                Professional Experience
+            </h2>
+            
+            <div class="relative border-l-2 border-gray-100 ml-3 pl-6 space-y-9">
+                
+                <!-- Role 1 -->
+                <div class="experience-item relative">
+                    <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow-sm box-content"></div>
+                    
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h3 class="text-[14px] font-extrabold text-gray-900">Mercado Libre</h3>
+                        <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Mar 2024 – Present</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-2 text-[12px]">
+                        <span class="font-bold text-gray-800">UX Product Lead / UX Design Project Leader</span>
+                        <span class="text-gray-400">|</span>
+                        <span class="text-gray-500">Santiago, Chile</span>
+                    </div>
+                    <ul class="body-text experience-list">
+                        <li>Lidero la <strong>estrategia y ejecución</strong> de experiencias digitales para plataformas de Customer Experience de alta escala, impactando métricas clave de negocio.</li>
+                        <li>Defino roadmaps trimestrales priorizados por impacto, capacidad y objetivos estratégicos, equilibrando iniciativas de largo plazo y quick wins.</li>
+                        <li>Lidero procesos de diseño <strong>end-to-end</strong> (discovery → delivery → post-launch), asegurando calidad, coherencia y medición de impacto real.</li>
+                        <li>Trabajo de forma transversal con Producto, Ingeniería y Stakeholders, facilitando alineación y toma de decisiones informadas.</li>
+                        <li>Impulso la adopción de <strong>Inteligencia Artificial</strong> como habilitador de eficiencia, calidad y escalabilidad en procesos de diseño.</li>
+                        <li>Lidero y desarrollo equipos de UX Designers y UX Writers, definiendo criterios de calidad y planes de crecimiento profesional.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="experience-item relative">
+                    <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-gray-300 border-2 border-white box-content"></div>
+                    
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h3 class="text-[14px] font-bold text-gray-800">Mercado Libre</h3>
+                        <span class="text-[11px] font-medium text-gray-500">Oct 2022 – Mar 2024</span>
+                    </div>
+                    <h4 class="text-[12px] font-medium text-gray-700 mb-2">Senior UX Designer</h4>
+                    <ul class="body-text experience-list">
+                        <li>Diseño y lidero experiencias end-to-end para productos complejos con impacto directo en negocio.</li>
+                        <li>Participo activamente en definición de problemas, <strong>discovery y co-creación</strong> junto a Product Managers y Tech Leads.</li>
+                        <li>Tomo decisiones de diseño basadas en research, datos y métricas de producto.</li>
+                        <li>Facilito workshops y espacios de alineación cross-funcional, comunicando decisiones a audiencias técnicas y de negocio.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 3 -->
+                <div class="experience-item relative">
+                     <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-gray-300 border-2 border-white box-content"></div>
+
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h3 class="text-[14px] font-bold text-gray-800">Dafiti Group LATAM</h3>
+                        <span class="text-[11px] font-medium text-gray-500">Jun 2022 – Oct 2022</span>
+                    </div>
+                    <h4 class="text-[12px] font-medium text-gray-700 mb-2">Service Designer</h4>
+                    <ul class="body-text experience-list">
+                        <li>Diseño y optimización de experiencias en ecosistema e-commerce de alta escala, con foco en página de producto y buscador.</li>
+                        <li>Análisis de <strong>Service Design</strong> para identificar fricciones entre interfaz, operación y sistemas internos.</li>
+                        <li>Trabajo colaborativo con equipos de producto, tecnología y negocio, utilizando research y métricas para validar impacto.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 4 -->
+                <div class="experience-item relative">
+                     <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-gray-300 border-2 border-white box-content"></div>
+
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h3 class="text-[14px] font-bold text-gray-800">Entel</h3>
+                        <span class="text-[11px] font-medium text-gray-500">Jun 2021 – Jun 2022</span>
+                    </div>
+                    <h4 class="text-[12px] font-medium text-gray-700 mb-2">UX Lead Designer</h4>
+                    <ul class="body-text experience-list">
+                        <li>Liderazgo de equipos multidisciplinarios enfocados en el diseño y evolución de <strong>Design Systems</strong> escalables.</li>
+                        <li>Definición de principios, lineamientos y procesos de diseño para productos digitales de la compañía.</li>
+                        <li>Coordinación y alineación entre diseño, desarrollo y negocio para asegurar consistencia y escalabilidad.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 5 -->
+                <div class="experience-item relative">
+                     <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-gray-300 border-2 border-white box-content"></div>
+
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h3 class="text-[14px] font-bold text-gray-800">Entel</h3>
+                        <span class="text-[11px] font-medium text-gray-500">Nov 2018 – Jun 2022</span>
+                    </div>
+                    <h4 class="text-[12px] font-medium text-gray-700 mb-2">Senior UX/UI Designer</h4>
+                    <ul class="body-text experience-list">
+                        <li>Diseño de experiencias para aplicaciones móviles y web en contextos de alta complejidad técnica.</li>
+                        <li>Colaboración constante con Producto y Desarrollo para equilibrar experiencia, viabilidad técnica y objetivos de negocio.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Previous Experience Section -->
+            <div class="mt-8 pt-6 border-t border-gray-100">
+                <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-4 pl-1 flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-gray-300 rounded-full"></span> Previous Experience
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 pl-1">
+                    <div class="previous-role-item">
+                        <div class="flex justify-between items-baseline">
+                            <span class="previous-role-title">Prosper Points</span>
+                            <span class="previous-role-meta">Jan 2018 – Oct 2018</span>
+                        </div>
+                        <p class="previous-role-meta text-gray-500">UX Designer | Santiago, Chile</p>
+                    </div>
+                    <div class="previous-role-item">
+                        <div class="flex justify-between items-baseline">
+                            <span class="previous-role-title">Polymaths</span>
+                            <span class="previous-role-meta">Oct 2013 – Jan 2018</span>
+                        </div>
+                        <p class="previous-role-meta text-gray-500">Visual Communicator | Canadá</p>
+                    </div>
+                    <div class="previous-role-item col-span-1 md:col-span-2">
+                        <div class="flex justify-between items-baseline">
+                            <span class="previous-role-title">Freelancer.com</span>
+                            <span class="previous-role-meta">2013 – 2019</span>
+                        </div>
+                        <p class="previous-role-meta text-gray-500">Diseñador de Experiencias de Usuario</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PÁGINA 3: Certifications, Education & Languages -->
+        <!-- Línea divisoria con 'force-break' para forzar la tercera página -->
+        <div class="w-full h-[1px] bg-gray-200 mb-[32px] force-break"></div>
+
+        <div class="grid grid-cols-1 gap-y-[24px]">
+            
+            <!-- Certifications -->
+            <section>
+                <h2 class="section-title">
+                    <span class="section-icon-box"><i data-lucide="award" class="w-3.5 h-3.5"></i></span>
+                    Certifications
+                </h2>
+                <ul class="experience-list body-text">
+                    <li>AI for Designers — Interaction Design Foundation</li>
+                    <li>Liderar con GenAI: el nuevo mindset de liderazgo 5.0 — Udemy</li>
+                    <li>Project Management (Practical & Fundamentals) — Platzi</li>
+                </ul>
+            </section>
+
+            <!-- Education -->
+            <section>
+                <h2 class="section-title">
+                    <span class="section-icon-box"><i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i></span>
+                    Education
+                </h2>
+                <div class="flex justify-between items-baseline">
+                    <div>
+                        <p class="body-text font-bold text-gray-900">Licenciado en Diseño Gráfico (Cum Laude)</p>
+                        <p class="body-text text-gray-600">Universidad de los Andes, Venezuela</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Languages -->
+            <section>
+                <h2 class="section-title">
+                    <span class="section-icon-box"><i data-lucide="globe" class="w-3.5 h-3.5"></i></span>
+                    Languages
+                </h2>
+                <p class="body-text text-gray-600">
+                    <span class="text-gray-900 font-bold">Español</span> (Nativo) <span class="mx-1 text-gray-300">|</span> 
+                    <span class="text-gray-900 font-bold">Inglés</span> (Profesional) <span class="mx-1 text-gray-300">|</span> 
+                    <span class="text-gray-900 font-bold">Portugués</span> (Básico)
+                </p>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function generatePDF() {
+            // Elemento a convertir
+            const element = document.getElementById('cv-content');
+            
+            // --- TRUCO CLAVE: Forzar modo escritorio temporalmente ---
+            // Guardamos el estado original
+            const originalWidth = element.style.width;
+            const originalMargin = element.style.margin;
+            const originalPadding = element.style.padding;
+            
+            // Forzamos dimensiones A4 rígidas para el renderizado
+            // Esto evita que si estás en un celular, el PDF salga "angosto"
+            element.style.width = '210mm';
+            element.style.margin = '0'; 
+            element.style.padding = '48px'; // Padding de escritorio
+            
+            // Opciones de configuración
+            const opt = {
+                margin: [15, 0, 15, 0], // Margen superior para evitar cortes feos
+                filename: 'CV_Jose_Cuervo_UX_Lead.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    scrollY: 0,
+                    windowWidth: 1200 // Simula una ventana de escritorio al renderizar
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                // IMPORTANTE: Modo 'css' permite que funcione el page-break-before: always
+                pagebreak: { mode: ['css', 'legacy'] }
+            };
+            
+            const btn = document.getElementById('download-btn');
+            const originalContent = btn.innerHTML;
+            
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> GENERANDO...';
+            lucide.createIcons();
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restauramos el estilo responsivo para que el usuario siga navegando feliz
+                element.style.width = originalWidth;
+                element.style.margin = originalMargin;
+                element.style.padding = originalPadding;
+                
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            });
+        }
+    </script>
+</body>
+</html>
