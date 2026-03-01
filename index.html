@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- SEO & Compartir -->
+    <!-- SEO & Sharing -->
     <title>CV - José Alejandro Cuervo Sánchez | UX Product Leader</title>
     <meta name="description" content="Strategic UX Product Leader specialized in Product Strategy, AI-driven CX, and Design Operations.">
     <meta name="author" content="José Alejandro Cuervo Sánchez">
@@ -19,10 +19,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Iconos Lucide -->
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Librería html2pdf.js -->
+    <!-- html2pdf.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -80,21 +80,19 @@
         .highlight-box { background-color: #f0f7ff; border-left: 3px solid #2563eb; padding: 10px 14px; margin-top: 8px; border-radius: 0 6px 6px 0; }
         .highlight-title { font-size: 10px; font-weight: 800; color: #1e40af; text-transform: uppercase; margin-bottom: 4px; display: block; }
 
-        .new-page-start { 
-            page-break-before: always !important; 
-            break-before: page !important; 
-        }
-        .no-split { 
-            page-break-inside: avoid !important; 
-            break-inside: avoid !important; 
-        }
+        .new-page-start { page-break-before: always !important; break-before: page !important; }
+        .no-split { page-break-inside: avoid !important; break-inside: avoid !important; }
 
-        .ui-header { position: fixed; top: 0; left: 0; width: 100%; height: 64px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; }
-        .lang-btn { padding: 4px 12px; font-size: 10px; font-weight: 800; border-radius: 6px; transition: all 0.2s; }
-        .lang-btn.active { background: #111827; color: white; }
-        .lang-btn.inactive { color: #6B7280; }
+        .ui-header { position: fixed; top: 0; left: 0; width: 100%; height: 64px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         
-        .page-badge { position: absolute; top: 20px; right: 48px; font-size: 9px; font-weight: 700; color: #D1D5DB; text-transform: uppercase; letter-spacing: 0.1em; }
+        .lang-toggle-container { display: flex; align-items: center; background: #f3f4f6; padding: 3px; border-radius: 10px; border: 1px solid #e5e7eb; }
+        .lang-btn { padding: 5px 14px; font-size: 11px; font-weight: 800; border-radius: 8px; transition: all 0.25s; text-transform: uppercase; }
+        .lang-btn.active { background: var(--color-accent); color: white; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); }
+        .lang-btn.inactive { color: #6B7280; }
+        .lang-label { font-size: 10px; font-weight: 700; color: #9CA3AF; text-transform: uppercase; margin-right: 10px; letter-spacing: 0.05em; }
+
+        @media screen and (max-width: 640px) { .ui-header { padding: 0 16px; } .lang-label { display: none; } }
+        .page-badge { position: absolute; top: 20px; right: 48px; font-size: 9px; font-weight: 700; color: #D1D5DB; text-transform: uppercase; }
         @media print { .page-badge { display: none; } }
     </style>
 </head>
@@ -102,34 +100,38 @@
 
     <nav class="ui-header" data-html2canvas-ignore="true">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs shrink-0">JC</div>
+            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-sm">JC</div>
             <div class="flex flex-col overflow-hidden">
                 <span class="font-bold text-gray-900 text-sm leading-tight truncate">José Cuervo</span>
                 <span class="text-[10px] text-gray-500 font-medium truncate" data-translate="header_label">UX Product Leader</span>
             </div>
         </div>
         
-        <div class="flex items-center gap-3">
-            <div class="flex bg-gray-100 p-1 rounded-lg">
-                <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn active">EN</button>
-                <button onclick="changeLanguage('es')" id="btn-es" class="lang-btn inactive">ES</button>
+        <div class="flex items-center">
+            <div class="flex items-center mr-4">
+                <span class="lang-label" data-translate="lang_ui_label">Language / Idioma</span>
+                <div class="lang-toggle-container">
+                    <div class="px-2 text-gray-400"><i data-lucide="languages" class="w-3.5 h-3.5"></i></div>
+                    <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn active">EN</button>
+                    <button onclick="changeLanguage('es')" id="btn-es" class="lang-btn inactive">ES</button>
+                </div>
             </div>
-            <button id="download-btn" onclick="generatePDF()" class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2 text-xs font-bold shadow-sm cursor-pointer">
+            <button id="download-btn" onclick="generatePDF()" class="bg-gray-900 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-2 text-xs font-bold shadow-sm cursor-pointer">
                 <i data-lucide="download" class="w-4 h-4"></i>
-                <span id="label-download">DOWNLOAD PDF</span>
+                <span id="label-download" class="hidden sm:inline">DOWNLOAD PDF</span>
+                <span class="sm:hidden">PDF</span>
             </button>
         </div>
     </nav>
 
     <div id="cv-content">
-        <!-- PÁGINA 1: EXECUTIVE OVERVIEW -->
+        <!-- PAGE 1: EXECUTIVE OVERVIEW -->
         <div class="page">
             <div class="page-badge" data-translate="page_1_label">Page 1: Executive Overview</div>
             
             <header class="mb-[32px]">
                 <h1 class="name-title mb-1">JOSÉ ALEJANDRO CUERVO SÁNCHEZ</h1>
                 <p class="job-title-header" data-translate="header_subtitle">UX PRODUCT LEADER | PRODUCT STRATEGY | AI-DRIVEN CX | DESIGN OPERATIONS</p>
-                
                 <div class="flex flex-wrap items-center gap-x-6 gap-y-2 mt-5 text-[10.5px] font-semibold border-t border-b border-gray-100 py-3 bg-gray-50/50 px-2 rounded">
                     <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-blue-600"></i><span class="text-gray-700">Santiago, Chile</span></div>
                     <div class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5 text-blue-600"></i><a href="mailto:josec31k@gmail.com" class="text-gray-700">josec31k@gmail.com</a></div>
@@ -156,19 +158,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="skill-block">
                         <h3 class="skill-group-title" data-translate="skill_1_title">Strategy & Governance</h3>
-                        <p class="skill-content" data-translate="skill_1_content">Regional <strong>UX Strategy</strong> · Portfolio Management (10-16 concurrent initiatives) · Level-0 Intake Evaluation · <strong>Design Operations (DesOps)</strong> · Executive Reporting · UX-Product-Eng Triad Execution</p>
+                        <p class="skill-content" data-translate="skill_1_content">Regional <strong>UX Strategy</strong> · Portfolio Management (10-16 concurrent initiatives) · Level-0 Intake Evaluation · <strong>Design Operations (DesOps)</strong> · UX-Product-Eng Triad Execution</p>
                     </div>
                     <div class="skill-block">
-                        <h3 class="skill-group-title" data-translate="skill_2_title">AI & Innovation</h3>
-                        <p class="skill-content" data-translate="skill_2_content"><strong>AI Integration (Copilot Mode)</strong> · AI-enabled Workflows · Real-time Transcript Intelligence · <strong>Automation Strategy</strong> · "Robust Representative" Operational Models</p>
+                        <h3 class="skill-group-title" data-translate="skill_2_title">AI & Innovation (Last 1.5 Years)</h3>
+                        <p class="skill-content" data-translate="skill_2_content"><strong>AI-powered CX Transformation</strong> · Copilot Mode Integration · AI-enabled Workflows · <strong>Automation Strategy</strong> · Real-time Transcript Intelligence</p>
                     </div>
                     <div class="skill-block">
                         <h3 class="skill-group-title" data-translate="skill_3_title">Leadership & Scale</h3>
                         <p class="skill-content" data-translate="skill_3_content">Regional Team Management (8+ members) · <strong>Design Systems at Scale</strong> · Cross-functional Roadmap Prioritization · <strong>Executive Alignment</strong> · Change Management</p>
                     </div>
                     <div class="skill-block">
-                        <h3 class="skill-group-title" data-translate="skill_4_title">Technical & Analytical Stack</h3>
-                        <p class="skill-content" data-translate="skill_4_content"><strong>Figma</strong> · AI-assisted Design · <strong>Product Analytics (Mixpanel/Amplitude)</strong> · Jira/Confluence · CRM Platforms · Agile / Scrum Frameworks</p>
+                        <h3 class="skill-group-title">Technical Stack</h3>
+                        <p class="skill-content"><strong>Figma</strong> · AI-assisted Design · <strong>Product Analytics</strong> · Jira/Confluence · CRM ecosystems · Agile Rituals</p>
                     </div>
                 </div>
             </section>
@@ -184,8 +186,8 @@
                         <p class="body-text" data-translate="impact_1_content">Pioneered <strong>"Copilot Mode"</strong> and tone-adaptive AI messaging, significantly reducing <strong>operational handling time</strong> across regional CX platforms.</p>
                     </div>
                     <div class="highlight-box no-split">
-                        <span class="highlight-title" data-translate="impact_2_title">Regional ROI & Performance</span>
-                        <p class="body-text" data-translate="impact_2_content">Directed CRM roadmap initiatives across <strong>5 LATAM markets</strong>, achieving <strong>measurable improvements</strong> in internal <strong>NPS and resolution quality</strong> metrics.</p>
+                        <span class="highlight-title" data-translate="impact_2_title">Regional Performance</span>
+                        <p class="body-text" data-translate="impact_2_content">Directed CRM roadmap initiatives across <strong>5 LATAM markets</strong>, achieving <strong>measurable improvements</strong> in internal <strong>NPS and resolution quality</strong>.</p>
                     </div>
                     <div class="highlight-box no-split">
                         <span class="highlight-title" data-translate="impact_3_title">Efficiency & UX Maturity</span>
@@ -200,52 +202,41 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4 mt-8 pt-6 border-t border-gray-100">
                 <section>
-                    <h2 class="section-title">
-                        <span class="section-icon-box"><i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i></span>
-                        <span data-translate="section_edu">Education</span>
-                    </h2>
-                    <p class="body-text font-bold text-gray-900" data-translate="edu_degree">Bachelor of Graphic Design (Cum Laude)</p>
-                    <p class="body-text text-gray-600">Universidad de los Andes, Venezuela</p>
-                </section>
-
-                <section>
-                    <h2 class="section-title">
-                        <span class="section-icon-box"><i data-lucide="award" class="w-3.5 h-3.5"></i></span>
-                        <span data-translate="section_certs">Certifications</span>
-                    </h2>
+                    <h2 class="section-title"><span class="section-icon-box"><i data-lucide="award" class="w-3.5 h-3.5"></i></span> Certs</h2>
                     <ul class="body-text experience-list" data-translate="certs_list">
-                        <li><strong>UX Management: Strategy and Tactics</strong> · IxDF</li>
+                        <li><strong>UX Management</strong> · IxDF</li>
                         <li><strong>AI for Designers</strong> · IxDF</li>
-                        <li><strong>Agile Methods for UX Design</strong> · IxDF</li>
+                        <li><strong>Agile for UX</strong> · IxDF</li>
                         <li><strong>Journey Mapping</strong> · IxDF</li>
-                        <li><strong>GenAI Leadership 5.0</strong> · Udemy</li>
-                        <li><strong>Project Management</strong> · Platzi</li>
                     </ul>
                 </section>
-
                 <section>
-                    <h2 class="section-title">
-                        <span class="section-icon-box"><i data-lucide="globe" class="w-3.5 h-3.5"></i></span>
-                        <span data-translate="section_lang">Languages</span>
-                    </h2>
-                    <p class="body-text text-gray-600" data-translate="lang_content">
-                        <span class="text-gray-900 font-bold">English</span> · <span class="text-gray-900 font-bold">Spanish</span> · <span class="text-gray-900 font-bold">Portuguese</span>
+                    <h2 class="section-title"><span class="section-icon-box"><i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i></span> Edu</h2>
+                    <p class="body-text font-bold">Graphic Design (Cum Laude)</p>
+                    <p class="body-text text-gray-500">ULA, Venezuela</p>
+                </section>
+                <section>
+                    <h2 class="section-title"><span class="section-icon-box"><i data-lucide="globe" class="w-3.5 h-3.5"></i></span> Languages</h2>
+                    <p class="body-text" data-translate="lang_content">
+                        <span class="text-gray-900 font-bold">Spanish</span> (Native) · 
+                        <span class="text-gray-900 font-bold">English</span> (Basic B1) · 
+                        <span class="text-gray-900 font-bold">Portuguese</span> (Basic)
                     </p>
                 </section>
             </div>
         </div>
 
-        <!-- PÁGINA 2: DETALLE PROFESIONAL -->
+        <!-- PAGE 2: DETALLE PROFESIONAL -->
         <div class="page">
-            <div class="page-badge" data-translate="page_2_label">Page 2: Detailed Professional Experience</div>
+            <div class="page-badge" data-translate="page_2_label">Page 2: Detailed Experience</div>
             
             <section>
-                <h2 class="section-title mb-[24px]">
+                <h2 class="section-title mb-[20px]">
                     <span class="section-icon-box"><i data-lucide="briefcase" class="w-3.5 h-3.5"></i></span>
-                    <span data-translate="section_experience">Detailed Experience</span>
+                    <span data-translate="section_experience">Professional Experience</span>
                 </h2>
                 
-                <div class="relative border-l-2 border-gray-100 ml-3 pl-6 space-y-8">
+                <div class="relative border-l-2 border-gray-100 ml-3 pl-6 space-y-6">
                     <!-- MERCADO LIBRE LEAD -->
                     <div class="experience-item relative no-split">
                         <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow-sm box-content"></div>
@@ -255,12 +246,12 @@
                         </div>
                         <div class="text-[11.5px] font-bold text-gray-800 mb-2" data-translate="exp_meli_lead_role">UX Product Lead / UX Design Project Leader</div>
                         <ul class="body-text experience-list" data-translate="exp_meli_lead_detail">
-                            <li><strong>Direct a regional multidisciplinary UX team</strong> of 8 members (Chile, Argentina, Brazil), dynamic structuring specialized squads for <strong>AI integration</strong> and <strong>CRM scalability</strong>.</li>
-                            <li><strong>Manage a regional portfolio of 10–16 concurrent initiatives</strong> per quarter, balancing <strong>strategic impact</strong> with execution capacity across the <strong>UX–Product–Engineering triad</strong>.</li>
-                            <li><strong>Orchestrating AI-enabled transformation</strong> through <strong>"Copilot Mode"</strong> and real-time transcript intelligence, strengthening the <strong>"robust representative"</strong> model across 5 LATAM markets.</li>
-                            <li><strong>Established a Level-0 intake evaluation framework</strong> to align incoming initiatives with <strong>operational feasibility</strong> and multi-country business targets.</li>
-                            <li><strong>Strengthened organizational UX maturity</strong> through structured <strong>governance rituals</strong>, design critique frameworks, and scalable <strong>Design Operations</strong> standards.</li>
-                            <li><strong>Influenced regional roadmap decisions</strong> impacting CRM operations across Brazil, Argentina, Chile, Colombia, and Mexico, ensuring <strong>strategic alignment</strong> at the executive level.</li>
+                            <li><strong>Led UX strategy</strong> across Mercado Libre’s <strong>Customer Experience CRM ecosystem</strong>, operating at the intersection of product vision, operational transformation, and <strong>AI-enabled scalability</strong>.</li>
+                            <li><strong>Directed a regional multidisciplinary UX team</strong> of 8 members (Chile, Argentina, and Brazil), dynamic structuring specialized squads for <strong>AI integration</strong>, CRM usability, operational dashboards, compensation systems, and document validation platforms.</li>
+                            <li><strong>Managed a portfolio of 10–16 concurrent initiatives</strong> per quarter, balancing strategic impact, execution capacity, and cross-functional alignment across Product, Engineering, and Executive stakeholders.</li>
+                            <li><strong>Pioneered AI-assisted case resolution (Copilot Mode)</strong> and real-time transcript intelligence, accelerating representative decision-making and significantly reducing <strong>operational handling time</strong>.</li>
+                            <li><strong>Established structured quarterly planning frameworks</strong>: Level-0 intake evaluation, Cross-functional roadmaps (UX–Product–Engineering triad), and <strong>UX operational governance</strong>.</li>
+                            <li><strong>Influenced roadmap decisions</strong> impacting CRM operations across 5 LATAM markets (Brazil, Argentina, Chile, Colombia, and Mexico).</li>
                         </ul>
                     </div>
 
@@ -269,13 +260,12 @@
                         <div class="absolute -left-[31px] top-[6px] w-3 h-3 rounded-full bg-gray-300 border-2 border-white box-content"></div>
                         <div class="flex justify-between items-baseline mb-1">
                             <h3 class="text-[13px] font-bold text-gray-800">Mercado Libre</h3>
-                            <span class="text-[10px] font-medium text-gray-500" data-translate="exp_meli_sr_date">Oct 2022 – Mar 2024</span>
+                            <span class="text-[10px] font-medium text-gray-500">Oct 2022 – Mar 2024</span>
                         </div>
                         <div class="text-[11.5px] font-semibold text-gray-700 mb-2">Senior UX Designer</div>
                         <ul class="body-text experience-list" data-translate="exp_meli_sr_detail">
-                            <li><strong>Pioneered end-to-end flows</strong> for complex CRM products, simplifying ambiguous tasks into <strong>scalable and high-fidelity UI solutions</strong>.</li>
-                            <li><strong>Optimized CRM navigation architecture</strong> and startpages, resulting in a significant reduction of <strong>cognitive load</strong> for frontline agents.</li>
-                            <li><strong>Leveraged continuous Discovery methodologies</strong> to validate design hypotheses, directly influencing the product roadmap through <strong>data-informed research</strong>.</li>
+                            <li><strong>Designed end-to-end flows</strong> for complex CRM products, reducing cognitive load for agents through <strong>scalable UI solutions</strong>.</li>
+                            <li><strong>Influenced roadmap initiatives</strong> supporting multi-country operational alignment and performance optimization across the region.</li>
                         </ul>
                     </div>
 
@@ -288,8 +278,7 @@
                         </div>
                         <div class="text-[11.5px] font-semibold text-gray-700 mb-2">Service Designer</div>
                         <ul class="body-text experience-list" data-translate="exp_dafiti_detail">
-                            <li><strong>Analyzed the intersection</strong> between UI and internal <strong>logistics operations</strong> to identify and solve high-impact <strong>service friction points</strong>.</li>
-                            <li><strong>Collaborated on search and PDP optimization</strong> for large-scale e-commerce ecosystems, enhancing <strong>conversion and operational efficiency</strong>.</li>
+                            <li><strong>Analyzed UI/Logistics intersection</strong> to solve high-impact <strong>service friction points</strong> in e-commerce ecosystems, improving operational clarity.</li>
                         </ul>
                     </div>
 
@@ -302,8 +291,7 @@
                         </div>
                         <div class="text-[11.5px] font-semibold text-gray-700 mb-2">UX Lead Designer</div>
                         <ul class="body-text experience-list" data-translate="exp_entel_lead_detail">
-                            <li><strong>Directed corporate Design System evolution</strong>, ensuring <strong>visual consistency</strong> and technical feasibility across Web and Mobile channels.</li>
-                            <li><strong>Established design governance processes</strong> to drive system adoption across multiple development squads, improving <strong>consistency and time-to-market</strong>.</li>
+                            <li><strong>Directed corporate Design System evolution</strong>, ensuring <strong>visual consistency</strong> across Web and Mobile, improving adoption and scalability.</li>
                         </ul>
                     </div>
 
@@ -316,8 +304,7 @@
                         </div>
                         <div class="text-[11.5px] font-semibold text-gray-700 mb-2">Senior UX/UI Designer</div>
                         <ul class="body-text experience-list" data-translate="exp_entel_sr_detail">
-                            <li><strong>Designed scalable experiences</strong> for the <strong>Entel mobile app</strong>, focusing on <strong>payment and self-service flows</strong> for millions of users.</li>
-                            <li><strong>Partnered with engineering squads</strong> to maintain high <strong>implementation fidelity</strong> and cross-platform usability standards.</li>
+                            <li><strong>Designed high-traffic mobile flows</strong> for payment and self-service for millions of users in the Chilean telecommunications sector.</li>
                         </ul>
                     </div>
                 </div>
@@ -326,18 +313,9 @@
                 <div class="mt-8 pt-6 border-t border-gray-100 no-split">
                     <h3 class="text-[9px] font-extrabold text-gray-400 uppercase tracking-widest mb-4" data-translate="prev_exp_label">Complementary Career History</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <p class="text-[10.5px] font-bold text-gray-800">Prosper Points</p>
-                            <p class="text-[10px] text-gray-500" data-translate="prev_prosper">UX Designer | 2018</p>
-                        </div>
-                        <div>
-                            <p class="text-[10.5px] font-bold text-gray-800">Polymaths</p>
-                            <p class="text-[10px] text-gray-500" data-translate="prev_poly">Visual Communicator | 2013-2018</p>
-                        </div>
-                        <div>
-                            <p class="text-[10.5px] font-bold text-gray-800">Freelancer.com</p>
-                            <p class="text-[10px] text-gray-500" data-translate="prev_free">UX Designer | 2013-2019</p>
-                        </div>
+                        <div><p class="text-[10.5px] font-bold text-gray-800">Prosper Points</p><p class="text-[10px] text-gray-500">UX Designer | 2018</p></div>
+                        <div><p class="text-[10.5px] font-bold text-gray-800">Polymaths</p><p class="text-[10px] text-gray-500">Visual Communicator | 2013-2018</p></div>
+                        <div><p class="text-[10.5px] font-bold text-gray-800">Freelancer.com</p><p class="text-[10px] text-gray-500">UX Designer | 2013-2019</p></div>
                     </div>
                 </div>
             </section>
@@ -347,93 +325,71 @@
     <script>
         const translations = {
             en: {
+                "lang_ui_label": "Language / Idioma",
                 "page_1_label": "Page 1: Executive Overview",
                 "page_2_label": "Page 2: Detailed Experience",
                 "header_label": "UX Product Leader",
                 "header_subtitle": "UX PRODUCT LEADER | PRODUCT STRATEGY | AI-DRIVEN CX | DESIGN OPERATIONS",
                 "section_summary": "Executive Profile",
                 "summary_content": "<strong>UX Product Leader</strong> with 10+ years of experience driving <strong>AI-powered CX transformation</strong> across multi-country ecosystems. Led regional portfolios impacting <strong>5 LATAM markets</strong>, improving <strong>NPS</strong>, reducing <strong>operational handling time</strong>, and scaling <strong>UX maturity</strong> at enterprise level.",
-                "section_skills": "Core Competencies",
                 "skill_1_title": "Strategy & Governance",
-                "skill_1_content": "Regional <strong>UX Strategy</strong> · Portfolio Management (10-16 concurrent initiatives) · Level-0 Intake Evaluation · <strong>Design Operations (DesOps)</strong> · Executive Reporting · UX-Product-Eng Triad Execution",
-                "skill_2_title": "AI & Innovation",
-                "skill_2_content": "<strong>AI Integration (Copilot Mode)</strong> · AI-enabled Workflows · Real-time Transcript Intelligence · <strong>Automation Strategy</strong> · \"Robust Representative\" Operational Models",
+                "skill_1_content": "Regional <strong>UX Strategy</strong> · Portfolio Management (10-16 concurrent initiatives) · Level-0 Intake Evaluation · <strong>Design Operations (DesOps)</strong> · UX-Product-Eng Triad Execution",
+                "skill_2_title": "AI & Innovation (Last 1.5 Years)",
+                "skill_2_content": "<strong>AI-powered CX Transformation</strong> · Copilot Mode Integration · AI-enabled Workflows · <strong>Automation Strategy</strong> · Real-time Transcript Intelligence",
                 "skill_3_title": "Leadership & Scale",
                 "skill_3_content": "Regional Team Management (8+ members) · <strong>Design Systems at Scale</strong> · Cross-functional Roadmap Prioritization · <strong>Executive Alignment</strong> · Change Management",
-                "skill_4_title": "Technical & Analytical Stack",
-                "skill_4_content": "<strong>Figma</strong> · AI-assisted Design · <strong>Product Analytics (Mixpanel/Amplitude)</strong> · Jira/Confluence · CRM Platforms · Agile / Scrum Frameworks",
                 "impact_label": "Strategic Impact Highlights",
                 "impact_1_title": "Operational AI Integration",
                 "impact_1_content": "Pioneered <strong>\"Copilot Mode\"</strong> and tone-adaptive AI messaging, significantly reducing <strong>operational handling time</strong> across regional CX platforms.",
-                "impact_2_title": "Regional ROI & Performance",
-                "impact_2_content": "Directed CRM roadmap initiatives across <strong>5 LATAM markets</strong>, achieving <strong>measurable improvements</strong> in internal <strong>NPS and resolution quality</strong> metrics.",
+                "impact_2_title": "Regional Performance",
+                "impact_2_content": "Directed CRM roadmap initiatives across <strong>5 LATAM markets</strong>, achieving <strong>measurable improvements</strong> in internal <strong>NPS and resolution quality</strong>.",
                 "impact_3_title": "Efficiency & UX Maturity",
                 "impact_3_content": "Evangelized <strong>UX maturity</strong> through Level-0 frameworks, optimizing <strong>delivery speed and throughput</strong> while managing a high-volume initiative portfolio.",
                 "impact_4_title": "Design Scalability",
                 "impact_4_content": "Significantly reduced <strong>cognitive load</strong> for frontline agents through the deployment of a regional CRM Design System and optimized information architecture.",
-                "section_experience": "Detailed Experience",
+                "section_experience": "Professional Experience",
+                "lang_content": "<span class='text-gray-900 font-bold'>Spanish</span> (Native) · <span class='text-gray-900 font-bold'>English</span> (Basic B1) · <span class='text-gray-900 font-bold'>Portuguese</span> (Basic)",
                 "exp_meli_lead_date": "Mar 2024 – Feb 2026",
                 "exp_meli_lead_role": "UX Product Lead / UX Design Project Leader",
-                "exp_meli_lead_detail": "<li><strong>Direct a regional multidisciplinary UX team</strong> of 8 members (Chile, Argentina, Brazil), dynamic structuring specialized squads for <strong>AI integration</strong> and <strong>CRM scalability</strong>.</li><li><strong>Manage a regional portfolio of 10–16 concurrent initiatives</strong> per quarter, balancing <strong>strategic impact</strong> with execution capacity across the <strong>UX–Product–Engineering triad</strong>.</li><li><strong>Orchestrating AI-enabled transformation</strong> through <strong>\"Copilot Mode\"</strong> and real-time transcript intelligence, strengthening the <strong>\"robust representative\"</strong> model across 5 LATAM markets.</li><li><strong>Established a Level-0 intake evaluation framework</strong> to align incoming initiatives with <strong>operational feasibility</strong> and multi-country business targets.</li><li><strong>Strengthened organizational UX maturity</strong> through structured <strong>governance rituals</strong>, design critique frameworks, and scalable <strong>Design Operations</strong> standards.</li><li><strong>Influenced regional roadmap decisions</strong> impacting CRM operations across Brazil, Argentina, Chile, Colombia, and Mexico, ensuring <strong>strategic alignment</strong> at the executive level.</li>",
-                "exp_meli_sr_detail": "<li><strong>Pioneered end-to-end flows</strong> for complex CRM products, simplifying ambiguous tasks into <strong>scalable and high-fidelity UI solutions</strong>.</li><li><strong>Optimized CRM navigation architecture</strong> and startpages, resulting in a significant reduction of <strong>cognitive load</strong> for frontline agents.</li><li><strong>Leveraged continuous Discovery methodologies</strong> to validate design hypotheses, directly influencing the product roadmap through <strong>data-informed research</strong>.</li>",
-                "exp_dafiti_detail": "<li><strong>Analyzed the intersection</strong> between UI and internal <strong>logistics operations</strong> to identify and solve high-impact <strong>service friction points</strong>.</li><li><strong>Collaborated on search and PDP optimization</strong> for large-scale e-commerce ecosystems, enhancing <strong>conversion and operational efficiency</strong>.</li>",
-                "exp_entel_lead_detail": "<li><strong>Directed corporate Design System evolution</strong>, ensuring <strong>visual consistency</strong> and technical feasibility across Web and Mobile channels.</li><li><strong>Established design governance processes</strong> to drive system adoption across multiple development squads, improving <strong>consistency and time-to-market</strong>.</li>",
-                "exp_entel_sr_detail": "<li><strong>Designed scalable experiences</strong> for the <strong>Entel mobile app</strong>, focusing on <strong>payment and self-service flows</strong> for millions of users.</li><li><strong>Partnered with engineering squads</strong> to maintain high <strong>implementation fidelity</strong> and cross-platform usability standards.</li>",
-                "prev_exp_label": "Complementary Career History",
-                "prev_prosper": "UX Designer | 2018",
-                "prev_poly": "Visual Communicator | 2013-2018",
-                "prev_free": "UX Designer | 2013-2019",
-                "section_edu": "Education",
-                "edu_degree": "Bachelor of Graphic Design (Cum Laude)",
-                "section_certs": "Certifications",
-                "certs_list": "<li><strong>UX Management: Strategy and Tactics</strong> · IxDF</li><li><strong>AI for Designers</strong> · IxDF</li><li><strong>Agile Methods for UX Design</strong> · IxDF</li><li><strong>Journey Mapping</strong> · IxDF</li><li><strong>GenAI Leadership 5.0</strong> · Udemy</li><li><strong>Project Management</strong> · Platzi</li>",
-                "section_lang": "Languages",
-                "lang_content": "<span class='text-gray-900 font-bold'>English</span> · <span class='text-gray-900 font-bold'>Spanish</span> · <span class='text-gray-900 font-bold'>Portuguese</span>",
+                "exp_meli_lead_detail": "<li><strong>Led UX strategy</strong> across Mercado Libre’s <strong>Customer Experience CRM ecosystem</strong>, operating at the intersection of product vision, operational transformation, and <strong>AI-enabled scalability</strong>.</li><li><strong>Directed a regional multidisciplinary UX team</strong> of 8 members (Chile, Argentina, and Brazil), structuring squads aligned to strategic tracks including <strong>AI integration</strong>, CRM usability, operational dashboards, compensation systems, and document validation platforms.</li><li><strong>Managed a portfolio of 10–16 concurrent initiatives</strong> per quarter, balancing strategic impact, execution capacity, and cross-functional alignment across Product, Engineering, and Executive stakeholders.</li><li><strong>Pioneered AI-assisted case resolution (Copilot Mode)</strong> and real-time transcript intelligence to improve response quality and significantly <strong>reduce operational handling time</strong>.</li><li><strong>Established structured quarterly planning frameworks</strong>: Level-0 intake evaluation, roadmaps (UX–Product–Engineering triad), and <strong>UX operational governance</strong>.</li><li><strong>Influenced roadmap decisions</strong> impacting CRM operations across Brazil, Argentina, Chile, Colombia, and Mexico.</li>",
+                "exp_meli_sr_detail": "<li><strong>Designed end-to-end flows</strong> for complex CRM products, reducing cognitive load for frontline agents through <strong>scalable UI solutions</strong>.</li><li>Influenced roadmap initiatives supporting multi-country operational alignment and performance optimization across the region.</li>",
+                "exp_dafiti_detail": "<li><strong>Analyzed the intersection</strong> between UI and internal logistics operations to identify high-impact <strong>service friction points</strong>.</li>",
+                "exp_entel_lead_detail": "<li><strong>Directed corporate Design System evolution</strong>, ensuring <strong>visual consistency</strong> across Web and Mobile, improving adoption and scalability.</li>",
+                "exp_entel_sr_detail": "<li><strong>Designed high-traffic mobile flows</strong> for payment and self-service for millions of users in the telecommunications sector.</li>",
                 "download_btn": "DOWNLOAD PDF"
             },
             es: {
+                "lang_ui_label": "Language / Idioma",
                 "page_1_label": "Página 1: Resumen Ejecutivo",
                 "page_2_label": "Página 2: Experiencia Detallada",
                 "header_label": "Líder de Producto UX",
                 "header_subtitle": "LÍDER DE PRODUCTO UX | ESTRATEGIA DE PRODUCTO | CX IMPULSADO POR IA | DESIGN OPS",
                 "section_summary": "Perfil Ejecutivo",
                 "summary_content": "<strong>Líder de Producto UX</strong> con más de 10 años de experiencia impulsando la <strong>transformación de CX impulsada por IA</strong> en ecosistemas multinacionales. Lideré portafolios regionales con impacto en <strong>5 mercados de LATAM</strong>, mejorando el <strong>NPS</strong>, reduciendo el <strong>tiempo de gestión operativa</strong> y escalando la <strong>madurez de UX</strong> a nivel empresarial.",
-                "section_skills": "Competencias Principales",
                 "skill_1_title": "Estrategia y Gobernanza",
-                "skill_1_content": "<strong>Estrategia UX Regional</strong> · Gestión de Portafolio (10-16 iniciativas concurrentes) · Evaluación de Intake Nivel-0 · <strong>Design Operations (DesOps)</strong> · Reporte Ejecutivo · Ejecución de Tríada UX-Producto-Ingeniería",
-                "skill_2_title": "IA e Innovación",
-                "skill_2_content": "<strong>Integración de IA (Modo Copilot)</strong> · Flujos de trabajo con IA · Inteligencia de Transcripción en tiempo real · <strong>Estrategia de Automatización</strong> · Modelos Operativos de \"Representante Robusto\"",
+                "skill_1_content": "Regional <strong>Strategic Leadership</strong> (5+ años) · Gestión de Portafolio (10-16 iniciativas) · Evaluación de Intake Nivel-0 · <strong>Design Ops</strong>",
+                "skill_2_title": "IA e Innovación (Último 1.5 Años)",
+                "skill_2_content": "<strong>Transformación de CX con IA</strong> · Integración de Modo Copilot · Flujos de trabajo con IA · <strong>Estrategia de Automatización</strong>",
                 "skill_3_title": "Liderazgo y Escala",
                 "skill_3_content": "Gestión de Equipos Regionales (8+ miembros) · <strong>Sistemas de Diseño a Escala</strong> · Priorización de Roadmap Cross-functional · <strong>Alineación Ejecutiva</strong> · Gestión del Cambio",
-                "skill_4_title": "Stack Técnico y Analítico",
-                "skill_4_content": "<strong>Figma</strong> · Diseño asistido por IA · <strong>Analítica de Producto (Mixpanel/Amplitude)</strong> · Jira/Confluence · CRM · Rituales Agile / Scrum",
                 "impact_label": "Hitos de Impacto Estratégico",
                 "impact_1_title": "Integración de IA Operativa",
-                "impact_1_content": "Lideré el <strong>\"Modo Copilot\"</strong> y sugerencias de IA adaptativas, reduciendo <strong>significativamente el tiempo de gestión operativa</strong> en plataformas de CX regionales.",
-                "impact_2_title": "ROI y Performance Regional",
-                "impact_2_content": "Dirigí iniciativas de roadmap CRM en <strong>5 mercados de LATAM</strong>, logrando una <strong>mejora medible</strong> en las métricas de <strong>NPS interno y calidad de resolución</strong>.",
+                "impact_1_content": "Lideré el <strong>\"Modo Copilot\"</strong> y sugerencias de IA adaptativas, reduciendo <strong>significativamente el tiempo de gestión operativa</strong> en plataformas regionales.",
+                "impact_2_title": "Rendimiento Regional",
+                "impact_2_content": "Dirigí iniciativas de roadmap CRM en <strong>5 mercados de LATAM</strong>, logrando una <strong>mejora medible</strong> en NPS interno y calidad de resolución.",
                 "impact_3_title": "Eficiencia y Madurez UX",
                 "impact_3_content": "Evangelicé la <strong>madurez UX</strong> mediante frameworks de Nivel-0, optimizando la <strong>velocidad de entrega y el rendimiento</strong> gestionando portafolios de alta complejidad.",
                 "impact_4_title": "Sistemas de Diseño Escalables",
                 "impact_4_content": "Reducción <strong>significativa de la carga cognitiva</strong> para agentes mediante el despliegue de un Design System regional y arquitectura optimizada.",
-                "section_experience": "Experiencia Detallada",
+                "section_experience": "Experiencia Profesional",
+                "lang_content": "<span class='text-gray-900 font-bold'>Español</span> (Nativo) · <span class='text-gray-900 font-bold'>Inglés</span> (Básico B1) · <span class='text-gray-900 font-bold'>Portugués</span> (Básico)",
                 "exp_meli_lead_date": "Mar 2024 – Feb 2026",
                 "exp_meli_lead_role": "UX Product Lead / UX Design Project Leader",
-                "exp_meli_lead_detail": "<li><strong>Dirijo un equipo multidisciplinario regional</strong> de 8 miembros (Chile, Argentina, Brasil), estructurando squads especializados en <strong>integración de IA</strong> y <strong>escalabilidad de CRM</strong>.</li><li><strong>Gestiono un portafolio regional de 10 a 16 iniciativas</strong> concurrentes por trimestre, equilibrando <strong>impacto estratégico</strong> con capacidad de ejecución (tríada UX–Producto–Ingeniería).</li><li><strong>Orquestando la transformación con IA</strong> mediante el <strong>\"Modo Copilot\"</strong> e inteligencia de transcripción en tiempo real, fortaleciendo el modelo de <strong>\"representante robusto\"</strong> en 5 mercados.</li><li><strong>Establecí un framework de evaluación de intake Nivel-0</strong> para alinear iniciativas entrantes con la <strong>factibilidad operativa</strong> y los objetivos de negocio multinacionales.</li><li><strong>Fortalecí la madurez UX organizacional</strong> mediante rituales de <strong>gobernanza estructurados</strong>, frameworks de crítica y estándares de <strong>Design Operations</strong> escalables.</li><li><strong>Influí en decisiones de roadmap regionales</strong> impactando operaciones en Brasil, Argentina, Chile, Colombia y México, asegurando <strong>alineación estratégica</strong> ejecutiva.</li>",
-                "exp_meli_sr_detail": "<li><strong>Lideré flujos end-to-end</strong> para productos CRM complejos, simplificando tareas ambiguas en <strong>soluciones de UI escalables y de alta fidelidad</strong>.</li><li><strong>Optimicé la arquitectura de navegación</strong> del CRM, resultando en una reducción significativa de la <strong>carga cognitiva</strong> para los agentes de primera línea.</li><li><strong>Utilicé metodologías de Discovery continuo</strong> para validar hipótesis, influyendo directamente en el roadmap mediante <strong>investigación informada por datos</strong>.</li>",
-                "exp_dafiti_detail": "<li><strong>Analicé la intersección</strong> entre la interfaz y las <strong>operaciones logísticas internas</strong> para identificar y resolver <strong>puntos de fricción</strong> de servicio de alto impacto.</li><li><strong>Colaboré en la optimización de búsqueda y PDP</strong> para ecosistemas e-commerce, mejorando la <strong>conversión y la eficiencia operativa</strong>.</li>",
-                "exp_entel_lead_detail": "<li><strong>Dirigí la evolución del Sistema de Diseño corporativo</strong>, asegurando la <strong>consistencia visual</strong> y factibilidad técnica en canales Web y Mobile.</li><li><strong>Implementé procesos de gobernanza</strong> para impulsar la adopción del sistema en múltiples squads, mejorando la <strong>consistencia y el time-to-market</strong>.</li>",
-                "exp_entel_sr_detail": "<li><strong>Diseñé experiencias escalables</strong> para la <strong>App móvil de Entel</strong>, enfocándome en <strong>flujos de pago y autogestión</strong> para millones de usuarios.</li><li><strong>Colaboré con equipos de ingeniería</strong> para asegurar una alta <strong>fidelidad de implementación</strong> y estándares de usabilidad cross-platform.</li>",
-                "prev_exp_label": "Historial Laboral Complementario",
-                "prev_prosper": "Diseñador UX | 2018",
-                "prev_poly": "Comunicador Visual | 2013-2018",
-                "prev_free": "Diseñador UX | 2013-2019",
-                "section_edu": "Education",
-                "edu_degree": "Licenciado en Diseño Gráfico (Cum Laude)",
-                "section_certs": "Certificaciones",
-                "certs_list": "<li><strong>UX Management: Strategy and Tactics</strong> · IxDF</li><li><strong>AI for Designers</strong> · IxDF</li><li><strong>Agile Methods for UX Design</strong> · IxDF</li><li><strong>Journey Mapping</strong> · IxDF</li><li><strong>GenAI Leadership 5.0</strong> · Udemy</li><li><strong>Project Management</strong> · Platzi</li>",
-                "section_lang": "Idiomas",
-                "lang_content": "<span class='text-gray-900 font-bold'>Inglés</span> · <span class='text-gray-900 font-bold'>Español</span> · <span class='text-gray-900 font-bold'>Portugués</span>",
+                "exp_meli_lead_detail": "<li><strong>Lideré la estrategia de UX</strong> en el ecosistema CRM de Customer Experience de Mercado Libre, operando en la intersección de producto y <strong>escalabilidad con IA</strong>.</li><li><strong>Dirigí un equipo regional multidisciplinario</strong> de 8 miembros (Chile, Argentina, Brasil), estructurando squads especializados en integración de IA, usabilidad de CRM y dashboards.</li><li><strong>Gestioné un portafolio de 10–16 iniciativas</strong> concurrentes por trimestre, equilibrando impacto estratégico y alineación cross-functional.</li><li><strong>Lideré la resolución asistida por IA (Modo Copilot)</strong> e inteligencia de transcripción en tiempo real, acelerando la toma de decisiones y reduciendo el <strong>tiempo de gestión operativa</strong>.</li><li><strong>Establecí frameworks de planificación trimestral</strong>: evaluación de intake Nivel-0, roadmaps de tríada (UX-Producto-Ingeniería) y <strong>gobernanza operativa</strong>.</li><li><strong>Influí en decisiones de roadmap</strong> impactando operaciones en 5 mercados de LATAM (Brasil, Argentina, Chile, Colombia y México).</li>",
+                "exp_meli_sr_detail": "<li><strong>Diseñé flujos end-to-end</strong> para productos CRM complejos, reduciendo la carga cognitiva mediante <strong>soluciones de UI escalables</strong>.</li><li>Influí en iniciativas de roadmap apoyando la alineación operativa multi-país y la optimización del rendimiento en la región.</li>",
+                "exp_dafiti_detail": "<li><strong>Análisis de la intersección UI/Logística</strong> para resolver <strong>puntos de fricción</strong> de servicio de alto impacto en e-commerce regional.</li>",
+                "exp_entel_lead_detail": "<li><strong>Dirigí la evolución del Design System</strong> corporativo, asegurando consistencia visual en Web y Mobile y mejorando la adopción organizacional.</li>",
+                "exp_entel_sr_detail": "<li><strong>Diseñé flujos móviles de alto tráfico</strong> para pago y autogestión de millones de usuarios en telecomunicaciones.</li>",
                 "download_btn": "DESCARGAR PDF"
             }
         };
@@ -446,7 +402,7 @@
                     el.innerHTML = translations[lang][key];
                 }
             });
-            document.getElementById('label-download').innerText = translations[lang]["download_btn"];
+            document.getElementById('label-download').innerText = translations[lang]["download_btn"] || (lang === 'es' ? 'DESCARGAR PDF' : 'DOWNLOAD PDF');
             const isEn = lang === 'en';
             document.getElementById('btn-en').className = isEn ? "lang-btn active" : "lang-btn inactive";
             document.getElementById('btn-es').className = !isEn ? "lang-btn active" : "lang-btn inactive";
